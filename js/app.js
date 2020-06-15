@@ -5,37 +5,36 @@ lo demás 21%
 No valen negativos y todo se mostrará por consola
 */
 
+//Producto
+const product = { count: 3, price: 12.55, type: "ropa"};
 
 //Calcular precio total
 
-const product = { count: 3, price: 12.55, type: "ropa"};
+function getTotal(product){
+    let total = product.count <= 0 ? 0 : product.count * product.price;
+    return total;
+}
 
-let total = product.count <= 0 ? 0 : product.count * product.price;
-
-console.log("El total sin IVA sería: "+ total);
 
 //Calcular IVA 
 
+function getVAT(product){
 
-switch(product.type){
-    case "alimentacion":
-        tipoIVA = 0.1;
-        break;
-    case "libro":
-        tipoIVA = 0.04;
-        break;
-    default:
-        tipoIVA = 0.21;
-        break;
+
+    switch(product.type){
+        case "alimentacion":
+            tipoIVA = 0.1;
+            break;
+        case "libro":
+            tipoIVA = 0.04;
+            break;
+        default:
+            tipoIVA = 0.21;
+            break;
+    }
+
+    return tipoIVA * product.price;
 }
-
-console.log("El tipo de IVA a aplicar es de: " + tipoIVA);
-
-var IVA = total * tipoIVA;
-console.log("El IVA a aplicar sería: " + IVA);
-
-var totalIVA = total + IVA;
-console.log("El total con IVA sería: " + totalIVA );
 
 //Calcular Sueldo Neto Nómina
 
@@ -68,6 +67,28 @@ console.log("Su sueldo Neto Anual es de: " + sueldoNeto);
 
 var sueldoNetoAnual = sueldoNeto/empleado.pagas;
 console.log("Su sueldo Neto Mensual es de: " + sueldoNetoAnual);
+
+//Avanzado
+
+function getTotalVAT(product){
+    return product.count > 0 ? product.count * getVAT(product) : 0;
+}
+
+//Mostrar resultados
+
+function printProductPrice(product){
+    const subtotal = getTotal(product);
+    const vat = getTotalVAT(product);
+    const total = subtotal + vat;
+
+    console.log("Subtotal: ", subtotal + "€");
+    console.log("IVA: ", vat + "€");
+    console.log("Total: ", total + "€");
+}
+
+printProductPrice(product);
+
+
 
 
 
